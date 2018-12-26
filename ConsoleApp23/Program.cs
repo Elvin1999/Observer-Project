@@ -62,7 +62,7 @@ namespace ConsoleApp21
                 msg.IsBodyHtml = true;
                 var smtpClient = new SmtpClient("smtp.mail.ru", 587);
                 smtpClient.UseDefaultCredentials = true;
-                smtpClient.Credentials = new NetworkCredential("camalzade_elvin@mail.ru", "ugurluimtahan");
+                smtpClient.Credentials = new NetworkCredential("camalzade_elvin@mail.ru", "nocontent");
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);
                 Console.WriteLine("====================================================");
@@ -111,9 +111,8 @@ namespace ConsoleApp21
             observable.AddObserver(observer2);
             observable.AddObserver(observer3);
             observable.AddObserver(Samir); observable.AddObserver(Samir2);
-            //observable.AddObserver(Elvin); observable.AddObserver(Elvin2);
+            observable.AddObserver(Elvin); observable.AddObserver(Elvin2);
             observable.Notify();
-
         }
     }
 }
