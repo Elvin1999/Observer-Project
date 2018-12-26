@@ -22,14 +22,16 @@ namespace ConsoleApp21
         public void Update(string info)
         {
             WriteToFile(info);
+            Console.WriteLine("====================================================");
             Console.WriteLine($"Info sent to {OwnerName} and to File Succesfully");
+            Console.WriteLine("====================================================");
             //ReadFromFile();
         }
         public void WriteToFile(string info)
         {
             using (StreamWriter wr = new StreamWriter("file.json", true))
             {
-                wr.WriteLine($"{info} for {OwnerName}and to File");
+                wr.WriteLine($"{info} for {OwnerName} and to File");
             }
         }
         public void ReadFromFile()
@@ -37,9 +39,10 @@ namespace ConsoleApp21
             using (StreamReader sr = new StreamReader("file.json"))
             {
                 var result = sr.ReadToEnd();
+                Console.WriteLine("====================================================");
                 Console.WriteLine(result);
-            }
-            
+                Console.WriteLine("====================================================");
+            }        
         }
     }
     class MailSenderObserver : IObserver
@@ -62,7 +65,9 @@ namespace ConsoleApp21
                 smtpClient.Credentials = new NetworkCredential("camalzade_elvin@mail.ru", "ugurluimtahan");
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);
+                Console.WriteLine("====================================================");
                 Console.WriteLine($"Email Sended to {EmailAddress} Successfully");
+                Console.WriteLine("====================================================");
             }
             catch (Exception ex)
             {
@@ -105,7 +110,7 @@ namespace ConsoleApp21
             observable.AddObserver(observer1);
             observable.AddObserver(observer2);
             observable.AddObserver(observer3);
-            //observable.AddObserver(Samir); observable.AddObserver(Samir2);
+            observable.AddObserver(Samir); observable.AddObserver(Samir2);
             observable.AddObserver(Elvin); observable.AddObserver(Elvin2);
             observable.Notify();
 
