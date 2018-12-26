@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -13,9 +14,32 @@ namespace ConsoleApp21
     }
     class FileLoggerObserver : IObserver
     {
+        public FileLoggerObserver(string ownerName)
+        {
+            OwnerName = ownerName;
+        }
+        public string OwnerName { get; set; }
         public void Update(string info)
         {
-            Console.WriteLine($"{info} for File Logger");//file a yaz
+            WriteToFile(info);
+            Console.WriteLine($"Info sent to {OwnerName} and to File Succesfully");
+            //ReadFromFile();
+        }
+        public void WriteToFile(string info)
+        {
+            using (StreamWriter wr = new StreamWriter("file.json", true))
+            {
+                wr.WriteLine($"{info} for {OwnerName}and to File");
+            }
+        }
+        public void ReadFromFile()
+        {
+            using (StreamReader sr = new StreamReader("file.json"))
+            {
+                var result = sr.ReadToEnd();
+                Console.WriteLine(result);
+            }
+            
         }
     }
     class MailSenderObserver : IObserver
@@ -24,7 +48,6 @@ namespace ConsoleApp21
         {
             EmailAddress = emailAddress;
         }
-
         public string EmailAddress { get; set; }
         public void Update(string info)
         {
@@ -72,13 +95,17 @@ namespace ConsoleApp21
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Observable observable = new Observable();
-            FileLoggerObserver observer = new FileLoggerObserver();
+            FileLoggerObserver observer1 = new FileLoggerObserver("John");
+            FileLoggerObserver observer2 = new FileLoggerObserver("Mike");
+            FileLoggerObserver observer3 = new FileLoggerObserver("Brian");
             MailSenderObserver Samir = new MailSenderObserver("samirhemzeyev2001@gmail.com");
             MailSenderObserver Elvin = new MailSenderObserver("camalzade_elvin@mail.ru");
             MailSenderObserver Samir2 = new MailSenderObserver("samirhemzeyev2001@gmail.com");
             MailSenderObserver Elvin2 = new MailSenderObserver("camalzade_elvin@mail.ru");
-            observable.AddObserver(observer);
-            observable.AddObserver(Samir); observable.AddObserver(Samir2);
+            observable.AddObserver(observer1);
+            observable.AddObserver(observer2);
+            observable.AddObserver(observer3);
+            //observable.AddObserver(Samir); observable.AddObserver(Samir2);
             observable.AddObserver(Elvin); observable.AddObserver(Elvin2);
             observable.Notify();
 
