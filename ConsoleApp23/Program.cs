@@ -42,7 +42,7 @@ namespace ConsoleApp21
                 Console.WriteLine("====================================================");
                 Console.WriteLine(result);
                 Console.WriteLine("====================================================");
-            }        
+            }
         }
     }
     class MailSenderObserver : IObserver
@@ -57,7 +57,7 @@ namespace ConsoleApp21
             try
             {
                 string mailBodyhtml =
-                "<h1>Some information for MailSender</h1>";
+                $"<h1>Some information for {EmailAddress}</h1>";
                 var msg = new MailMessage("camalzade_elvin@mail.ru", EmailAddress, "Hello", mailBodyhtml);
                 msg.IsBodyHtml = true;
                 var smtpClient = new SmtpClient("smtp.mail.ru", 587);
@@ -66,7 +66,7 @@ namespace ConsoleApp21
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);
                 Console.WriteLine("====================================================");
-                Console.WriteLine($"Email Sended to {EmailAddress} Successfully");
+                Console.WriteLine($"Email Sent to {EmailAddress} Successfully");
                 Console.WriteLine("====================================================");
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace ConsoleApp21
         {
             foreach (var observer in observers)
             {
-                observer.Update(" . . . Some Information . . . ");
+                observer.Update(" . . . Information . . . ");
             }
         }
     }
@@ -111,7 +111,7 @@ namespace ConsoleApp21
             observable.AddObserver(observer2);
             observable.AddObserver(observer3);
             observable.AddObserver(Samir); observable.AddObserver(Samir2);
-            observable.AddObserver(Elvin); observable.AddObserver(Elvin2);
+            //observable.AddObserver(Elvin); observable.AddObserver(Elvin2);
             observable.Notify();
 
         }
